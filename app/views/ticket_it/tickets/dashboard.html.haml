@@ -1,0 +1,14 @@
+.d-flex.align-items-center.p-3.my-3.text-white-50.bg-purple.rounded.box-shadow
+  = image_tag 'https://getbootstrap.com/assets/brand/bootstrap-outline.svg', class:'mr-3', width:'28', height:'28'
+  .lh-100
+    %h3.mb-0.text-white.lh-100
+      Dashboard
+.row.m-0.d-flex.align-items-center
+  -#Sample of metrics {"all"=>1, "new"=>1, "work_in_progress"=>0, "quality_check"=>0, "closed"=>0}
+  - @ticket_metrics.each do |m,v|
+    .col-md-3.col-12.pl-0
+      .my-3.p-3.bg-white.rounded.box-shadow.text-center
+        %h3
+          = v
+        %strong.text-muted
+          = m.to_s.humanize

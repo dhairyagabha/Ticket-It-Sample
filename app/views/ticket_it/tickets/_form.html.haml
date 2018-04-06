@@ -1,0 +1,36 @@
+.my-3.p-3.bg-white.rounded.box-shadow
+  = form_for ticket do |f|
+    - if !ticket.errors.empty?
+      %ul.alert.alert-danger.mt-2.list-unstyled
+        - ticket.errors.full_messages.each do |m|
+          %li
+            = m
+    .row
+      .col-md-6
+        .form-group
+          = f.label :number
+          = f.text_field :number, class:'form-control'
+      .col-md-6
+        .form-group
+          = f.label :status
+          = f.select :status, @ticket.ticket_status.map{|t| [t.humanize, t]},{}, {class:'custom-select'}
+    .form-group
+      = f.label :name
+      = f.text_field :name, class:'form-control'
+    .form-group
+      = f.label :description
+      = f.text_area :description, class:'form-control'
+    .row
+      .col-md-6
+        .form-group
+          = f.label :priority
+          = f.select :priority, @ticket.ticket_priorities.map{|t| [t.humanize, t]},{prompt: true}, class:'form-control'
+      .col-md-6
+        .form-group
+          = f.label :ticket_type
+          = f.select :ticket_type, @ticket.ticket_types.map{|t| [t.humanize, t]},{prompt: true}, class:'form-control'
+    .form-group
+      = f.label :prefered_contact
+      = f.select :prefered_contact, @ticket.ticket_contact.map{|t| [t.humanize, t]},{prompt: true}, class:'form-control'
+    = f.submit "#{ticket.persisted? ? 'Update Ticket' : 'Save Ticket'}", class:'btn bg-purple text-white'
+    = link_to 'Cancel', tickets_path, class:'btn btn-outline-danger'

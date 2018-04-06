@@ -1,0 +1,41 @@
+- content_for :logo do
+  %svg.d-block{:fill => "none", :height => "24", :stroke => "currentColor", "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", :viewbox => "0 0 24 24", :width => "24", :xmlns => "http://www.w3.org/2000/svg"}
+    %circle{:cx => "12", :cy => "12", :r => "10"}
+    %line{:x1 => "14.31", :x2 => "20.05", :y1 => "8", :y2 => "17.94"}
+    %line{:x1 => "9.69", :x2 => "21.17", :y1 => "8", :y2 => "8"}
+    %line{:x1 => "7.38", :x2 => "13.12", :y1 => "12", :y2 => "2.06"}
+    %line{:x1 => "9.69", :x2 => "3.95", :y1 => "16", :y2 => "6.06"}
+    %line{:x1 => "14.31", :x2 => "2.83", :y1 => "16", :y2 => "16"}
+    %line{:x1 => "16.62", :x2 => "10.88", :y1 => "12", :y2 => "21.94"}
+%nav.navbar.navbar-expand-md.fixed-top.navbar-dark.bg-dark
+  = link_to (yield :logo), root_path, class:'navbar-brand'
+  %button.navbar-toggler.p-0.border-0{"data-toggle" => "offcanvas", :type => "button"}
+    %span.navbar-toggler-icon
+  #navbarsExampleDefault.navbar-collapse.offcanvas-collapse
+    %ul.navbar-nav.mr-auto
+      %li.nav-item{class: action_name == 'dashboard' ? 'active' : ''}
+        = link_to 'Dashboard', dashboard_tickets_path, class:'nav-link'
+      %li.nav-item{class: controller_name == 'tickets' && !['dashboard','kanban'].include?(action_name) ? 'active' : ''}
+        = link_to 'Tickets', tickets_path, class:'nav-link'
+      %li.nav-item{class: controller_name == 'tickets' && action_name == 'kanban' ? 'active' : ''}
+        = link_to 'Kanban', kanban_tickets_path, class:'nav-link'
+    %ul.navbar-nav.ml-auto
+      %li.nav-item.dropdown.dropdown-right
+        %a#dropdown01.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "http://example.com"}
+          = ticketit_user.name
+        .dropdown-menu{"aria-labelledby" => "dropdown01"}
+          = link_to 'Settings', main_app.edit_user_registration_path, method: :delete, class:'dropdown-item'
+          = link_to 'Logout', main_app.destroy_user_session_path, method: :delete, class:'dropdown-item'
+.nav-scroller.bg-white.box-shadow
+  %nav.nav.nav-underline
+    %a.nav-link.active{:href => "#"} Dashboard
+    %a.nav-link{:href => "#"}
+      Friends
+      %span.badge.badge-pill.bg-light.align-text-bottom 27
+    %a.nav-link{:href => "#"} Explore
+    %a.nav-link{:href => "#"} Suggestions
+    %a.nav-link{:href => "#"} Link
+    %a.nav-link{:href => "#"} Link
+    %a.nav-link{:href => "#"} Link
+    %a.nav-link{:href => "#"} Link
+    %a.nav-link{:href => "#"} Link

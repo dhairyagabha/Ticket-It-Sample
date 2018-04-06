@@ -1,0 +1,17 @@
+.d-flex.justify-content-center
+  .col-md-4.mt-5.mb-5
+    .card.text-center
+      .card-body
+        %h5.card-title Log In
+        = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+          = devise_error_messages!
+          .form-group
+            = f.email_field :email, placeholder: :email, class:'form-control'
+          .form-group
+            = f.password_field :password, placeholder: :password, class:'form-control'
+          - if devise_mapping.rememberable?
+            .field
+              = f.check_box :remember_me
+              = f.label :remember_me
+          = f.submit "Log in", class:'btn btn-primary btn-block'
+        = render "devise/shared/links"

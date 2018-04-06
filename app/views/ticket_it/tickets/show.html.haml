@@ -1,0 +1,41 @@
+.d-flex.align-items-center.p-3.my-3.text-white-50.bg-purple.rounded.box-shadow
+  = image_tag 'https://getbootstrap.com/assets/brand/bootstrap-outline.svg', class:'mr-3', width:'28', height:'28'
+  .lh-100
+    %h3.mb-0.text-white.lh-100
+      = @ticket.name
+  .ml-auto
+    = @ticket.number
+.my-3.p-3.bg-white.rounded.box-shadow
+  .clearfix
+    = form_for @ticket, html:{class:'float-left'} do |f|
+      = hidden_field_tag :authenticity_token, form_authenticity_token
+      %span.mr-2
+        %strong Status:
+        = f.select :status, @ticket.ticket_status.map{|t| [t.humanize, t]},{}, {class:'', onchange:'this.form.submit()'}
+      %span.mr-2
+        %strong Priority:
+        = f.select :priority, @ticket.ticket_priorities.map{|t| [t.humanize, t]},{prompt: true}, {class:'', onchange:'this.form.submit()'}
+      %span.mr-2
+        %strong Ticket Type:
+        = f.select :ticket_type, @ticket.ticket_types.map{|t| [t.humanize, t]},{prompt: true}, {class:'', onchange:'this.form.submit()'}
+    .float-right
+      = link_to 'Edit', edit_ticket_path(@ticket)
+  .my-4
+    = raw @ticket.description
+
+  .media.text-muted.pt-3
+    = image_tag 'https://getbootstrap.com/assets/brand/bootstrap-outline.svg', width:'28', height:'28', class:'mr-2 rounded bg-purple'
+    .media-body.mb-0.small.ln-125
+      %strong.d-block.text-gray-dark.mb-1
+        = ticketit_user.name
+      = form_for @ticket.comments.new, html:{class:'d-block'}, remote: true do |f|
+        = f.hidden_field :commentable_id, value: @ticket.id
+        = f.hidden_field :commentable_type, value: @ticket.class
+        .form-group
+          = f.text_area :content, class:'form-control'
+        = f.submit 'Comment', class:'btn bg-purple text-white'
+
+- comments = @ticket.comments.where.not(id: nil)
+- if comments.any?
+  .my-3.p-3.bg-white.rounded.box-shadow.comments
+    = render comments.order(created_at: :desc)

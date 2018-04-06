@@ -61,6 +61,17 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "ticket_it_sample_#{Rails.env}"
   config.action_mailer.perform_caching = false
+  config.action_mailer.default_url_options = {host: ENV['APP_DOMAIN']}
+  config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.smtp_settings = {
+      address: ENV['ADDRESS'],
+      port: 587,
+      user_name: ENV['EMAIL'],
+      password: ENV['PASSWORD'],
+      authentication: 'login',
+      enable_starttls_auto: true
+  }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
