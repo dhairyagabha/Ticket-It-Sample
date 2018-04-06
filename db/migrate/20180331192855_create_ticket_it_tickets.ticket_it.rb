@@ -7,7 +7,7 @@ class CreateTicketItTickets < ActiveRecord::Migration[5.1]
       t.string :name
       t.text :description
       t.integer :resource_id
-      t.string :type
+      t.string :ticket_type
       t.string :priority
       t.string :prefered_contact
       t.datetime :closed_at
