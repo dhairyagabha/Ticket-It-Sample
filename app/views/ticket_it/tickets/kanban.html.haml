@@ -1,0 +1,19 @@
+.d-flex.align-items-center.p-3.my-3.text-white-50.bg-purple.rounded.box-shadow
+  = image_tag 'https://getbootstrap.com/assets/brand/bootstrap-outline.svg', class:'mr-3', width:'28', height:'28'
+  .lh-100
+    %h3.mb-0.text-white.lh-100
+      Kanban Board
+  .ml-auto
+    = link_to 'New', new_ticket_path, class:'btn text-white p-0'
+.row.scrollable
+  - TicketIt::Ticket.first.ticket_status.each do |s|
+    .col-4
+      .my-3.p-3.bg-white.rounded.box-shadow
+        .text-center
+          %h3
+            = s.humanize
+        %ul
+          - if @tickets["#{s}"]
+            - @tickets["#{s}"].each do |t|
+              %li
+                = link_to t.name, tickets_path(t)

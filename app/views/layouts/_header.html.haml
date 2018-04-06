@@ -14,10 +14,11 @@
     = link_to 'Features','', class:'py-2 d-none d-md-inline-block'
     = link_to 'Docs','', class:'py-2 d-none d-md-inline-block'
     = link_to 'Support','', class:'py-2 d-none d-md-inline-block'
-    = link_to 'Demo','/help', class:'py-2 d-none d-md-inline-block'
+    = link_to 'Demo',ticket_it_path, class:'py-2 d-none d-md-inline-block'
     - if !current_user
       = link_to 'Sign In',new_user_session_path, class:'py-2 d-none d-md-inline-block'
-      = link_to 'Sign Up',new_user_registration_path, class:'py-2 d-none d-md-inline-block btn btn-outline-secondary'
+      .py-2.d-none.d-md-inline-block
+        = link_to 'Sign Up',new_user_registration_path, class:'btn btn-outline-secondary'
     - else
       = link_to current_user.name,'', class:'py-2 d-none d-md-inline-block'
       = link_to 'Logout',destroy_user_session_path, method: :delete, class:'py-2 d-none d-md-inline-block'

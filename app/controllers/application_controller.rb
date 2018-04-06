@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!, if: :not_unlocked_controllers
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-
   def ticketit_user
     current_user
   end
