@@ -1,8 +1,14 @@
+= content_for :secondary_nav do
+  .nav-scroller.bg-white.box-shadow
+    %nav.nav.nav-underline.justify-content-center
+      = link_to "My Tickets&nbsp;&nbsp;<span class='badge badge-pill bg-light align-text-bottom'>&nbsp;#{@tickets.count}&nbsp;</span>".html_safe, tickets_path(filter: :my_tickets), class:"nav-link bg-light #{params[:filter]=='all_tickets' ? nil : 'active'}"
+      = link_to 'All Tickets', tickets_path(filter: :all_tickets), class:"nav-link bg-light #{params[:filter]=='all_tickets' ? 'active':nil}"
+
 .d-flex.align-items-center.p-3.my-3.text-white-50.bg-purple.rounded.box-shadow
   = image_tag 'https://getbootstrap.com/assets/brand/bootstrap-outline.svg', class:'mr-3', width:'28', height:'28'
   .lh-100
     %h3.mb-0.text-white.lh-100
-      All Tickets
+      = params[:filter]=='all_tickets' ? 'All Tickets' : 'My Tickets'
   .ml-auto
     = link_to 'New', new_ticket_path, class:'btn text-white p-0'
 .my-3.p-3.bg-white.rounded.box-shadow
@@ -16,12 +22,10 @@
         %th Type
         %th
     %tbody
-      - @tickets.each do |ticket|
+      - @tickets = (params[:filter]=='all_tickets' ? @all_tickets : @tickets)
+      - if @tickets
+        = render @tickets
+      - else
         %tr
-          %td= ticket.number
-          %td= link_to ticket.name, ticket_path(ticket)
-          %td= ticket.priority.humanize
-          %td= ticket.status.humanize
-          %td= ticket.ticket_type.humanize
-          %td
-            = link_to 'Edit', edit_ticket_path(ticket)
+          %td.text-center{colspan: 6}
+            No Tickets to display. #{link_to 'Create one now!', new_ticket_path}

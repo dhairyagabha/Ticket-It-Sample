@@ -8,6 +8,10 @@ class ApplicationController < ActionController::Base
   end
   helper_method :ticketit_user
 
+  def after_sign_in_path_for(resource)
+    ticket_it_path
+  end
+
   protected
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])

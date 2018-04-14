@@ -19,6 +19,8 @@
         = link_to 'Tickets', tickets_path, class:'nav-link'
       %li.nav-item{class: controller_name == 'tickets' && action_name == 'kanban' ? 'active' : ''}
         = link_to 'Kanban', kanban_tickets_path, class:'nav-link'
+      %li.nav-item{class: controller_name == 'reporters' ? 'active' : ''}
+        = link_to 'Reporters', reporters_path, class:'nav-link'
     %ul.navbar-nav.ml-auto
       %li.nav-item.dropdown.dropdown-right
         %a#dropdown01.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "http://example.com"}
@@ -26,16 +28,4 @@
         .dropdown-menu{"aria-labelledby" => "dropdown01"}
           = link_to 'Settings', main_app.edit_user_registration_path, method: :delete, class:'dropdown-item'
           = link_to 'Logout', main_app.destroy_user_session_path, method: :delete, class:'dropdown-item'
-.nav-scroller.bg-white.box-shadow
-  %nav.nav.nav-underline
-    %a.nav-link.active{:href => "#"} Dashboard
-    %a.nav-link{:href => "#"}
-      Friends
-      %span.badge.badge-pill.bg-light.align-text-bottom 27
-    %a.nav-link{:href => "#"} Explore
-    %a.nav-link{:href => "#"} Suggestions
-    %a.nav-link{:href => "#"} Link
-    %a.nav-link{:href => "#"} Link
-    %a.nav-link{:href => "#"} Link
-    %a.nav-link{:href => "#"} Link
-    %a.nav-link{:href => "#"} Link
+= yield :secondary_nav

@@ -1,0 +1,6 @@
+%tr
+  %td= link_to reporter.name, reporter_path(reporter)
+  %td= reporter.email
+  %td= reporter.position
+  %td
+    = link_to 'Edit', edit_reporter_path(reporter)

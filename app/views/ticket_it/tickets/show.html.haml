@@ -1,3 +1,12 @@
+= content_for :secondary_nav do
+  .nav-scroller.bg-white.box-shadow
+    .container.d-flex.justify-content-between
+      %nav.nav.nav-underline.justify-content-start
+        = link_to 'Get Public Link', public_ticket_path(@ticket), class:'nav-link bg-light', target: '_blank'
+      %nav.nav.nav-underline.justify-content-end
+        = link_to 'Create a New Ticket', new_ticket_path, class:'nav-link bg-light'
+        = link_to 'Edit the ticket', edit_ticket_path(@ticket), class:'nav-link bg-light'
+
 .d-flex.align-items-center.p-3.my-3.text-white-50.bg-purple.rounded.box-shadow
   = image_tag 'https://getbootstrap.com/assets/brand/bootstrap-outline.svg', class:'mr-3', width:'28', height:'28'
   .lh-100
@@ -6,20 +15,17 @@
   .ml-auto
     = @ticket.number
 .my-3.p-3.bg-white.rounded.box-shadow
-  .clearfix
-    = form_for @ticket, html:{class:'float-left'} do |f|
-      = hidden_field_tag :authenticity_token, form_authenticity_token
-      %span.mr-2
-        %strong Status:
-        = f.select :status, @ticket.ticket_status.map{|t| [t.humanize, t]},{}, {class:'', onchange:'this.form.submit()'}
-      %span.mr-2
-        %strong Priority:
-        = f.select :priority, @ticket.ticket_priorities.map{|t| [t.humanize, t]},{prompt: true}, {class:'', onchange:'this.form.submit()'}
-      %span.mr-2
-        %strong Ticket Type:
-        = f.select :ticket_type, @ticket.ticket_types.map{|t| [t.humanize, t]},{prompt: true}, {class:'', onchange:'this.form.submit()'}
-    .float-right
-      = link_to 'Edit', edit_ticket_path(@ticket)
+  = form_for @ticket do |f|
+    = hidden_field_tag :authenticity_token, form_authenticity_token
+    %span.mr-2
+      %strong Status:
+      = f.select :status, @ticket.ticket_status.map{|t| [t.humanize, t]},{}, {class:'', onchange:'this.form.submit()'}
+    %span.mr-2
+      %strong Priority:
+      = f.select :priority, @ticket.ticket_priorities.map{|t| [t.humanize, t]},{prompt: true}, {class:'', onchange:'this.form.submit()'}
+    %span.mr-2
+      %strong Ticket Type:
+      = f.select :ticket_type, @ticket.ticket_types.map{|t| [t.humanize, t]},{prompt: true}, {class:'', onchange:'this.form.submit()'}
   .my-4
     = raw @ticket.description
 
@@ -36,6 +42,9 @@
         = f.submit 'Comment', class:'btn bg-purple text-white'
 
 - comments = @ticket.comments.where.not(id: nil)
-- if comments.any?
-  .my-3.p-3.bg-white.rounded.box-shadow.comments
-    = render comments.order(created_at: :desc)
+.my-3.p-3.bg-white.rounded.box-shadow
+  Comments
+  %hr
+  .comments
+    - if comments.any?
+      = render comments.order(created_at: :desc)

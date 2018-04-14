@@ -1,0 +1,26 @@
+= content_for :secondary_nav do
+  .nav-scroller.bg-white.box-shadow
+    %nav.nav.nav-underline.justify-content-center
+
+.d-flex.align-items-center.p-3.my-3.text-white-50.bg-purple.rounded.box-shadow
+  = image_tag 'https://getbootstrap.com/assets/brand/bootstrap-outline.svg', class:'mr-3', width:'28', height:'28'
+  .lh-100
+    %h3.mb-0.text-white.lh-100
+      All Reporters
+  .ml-auto
+    = link_to 'New', new_reporter_path, class:'btn text-white p-0'
+.my-3.p-3.bg-white.rounded.box-shadow
+  %table.table
+    %thead
+      %tr
+        %th Name
+        %th Email
+        %th Phone
+        %th
+    %tbody
+      - if !@reporters.empty?
+        = render @reporters
+      - else
+        %tr
+          %td.text-center{colspan: 6}
+            No Reporters to display. #{link_to 'Create one now!', new_reporter_path}

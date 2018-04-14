@@ -1,5 +1,5 @@
 - content_for :logo do
-  %svg.d-block.mb-2{:fill => "none", :height => "24", :stroke => "currentColor", "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", :viewbox => "0 0 24 24", :width => "24", :xmlns => "http://www.w3.org/2000/svg"}
+  %svg.d-block{:fill => "none", :height => "24", :stroke => "currentColor", "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", :viewbox => "0 0 24 24", :width => "24", :xmlns => "http://www.w3.org/2000/svg"}
     %circle{:cx => "12", :cy => "12", :r => "10"}
     %line{:x1 => "14.31", :x2 => "20.05", :y1 => "8", :y2 => "17.94"}
     %line{:x1 => "9.69", :x2 => "21.17", :y1 => "8", :y2 => "8"}
@@ -17,8 +17,7 @@
     = link_to 'Demo',ticket_it_path, class:'py-2 d-none d-md-inline-block'
     - if !current_user
       = link_to 'Sign In',new_user_session_path, class:'py-2 d-none d-md-inline-block'
-      .py-2.d-none.d-md-inline-block
-        = link_to 'Sign Up',new_user_registration_path, class:'btn btn-outline-secondary'
+      = link_to 'Sign Up',new_user_registration_path, class:'py-2 d-none d-md-inline-block'
     - else
       = link_to current_user.name,'', class:'py-2 d-none d-md-inline-block'
       = link_to 'Logout',destroy_user_session_path, method: :delete, class:'py-2 d-none d-md-inline-block'

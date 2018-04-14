@@ -1,0 +1,8 @@
+%tr
+  %td= ticket.number
+  %td= link_to ticket.name, ticket_path(ticket)
+  %td= ticket.priority.humanize
+  %td= ticket.status.humanize
+  %td= ticket.ticket_type.humanize
+  %td
+    = link_to 'Edit', edit_ticket_path(ticket)
